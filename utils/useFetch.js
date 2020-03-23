@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 const API_KEY = process.env.customKey;
 const language = '&language=en';
 const region = '&region=gb';
-const pageNumber = 1;
+// const pageNumber = 1;
 
-const useFetch = url => {
+const useFetch = (url, pageNumber) => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -22,7 +22,7 @@ const useFetch = url => {
       }
     };
     fetchData();
-  }, []);
+  }, [pageNumber]);
   return { response, error };
 };
 export default useFetch;
