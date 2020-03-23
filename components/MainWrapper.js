@@ -1,27 +1,35 @@
-import { useState } from 'react';
-import useFetch from '../utils/useFetch';
+import { useState, useEffect } from 'react';
+import { fetchData } from '../utils/useFetch';
 
 const MainWrapper = () => {
+  const [apiData, setApiData] = useState({ results: [] });
   const [pageNumber, setPageNumber] = useState(1);
-  const [content, setContent] = useState({ page: 0, results: [] });
 
-  const { response, error } = useFetch(
-    'https://api.themoviedb.org/3/movie/top_rated?api_key=',
-    pageNumber
-  );
-  if (error) return <p>Error...</p>;
+  const { page, results, total_pages } = apiData;
 
-  const { page, results, total_pages } = content;
-
-  // const pageLimit = page === 0 || page < total_pages;
+  const pageLimit = page === 0 || page < total_pages;
 
   const loadMore = () => {
     setPageNumber(pageNumber + 1);
   };
 
+  useEffect(() => {
+    fetchData(pageNumber).then(newData =>
+      setApiData({
+        ...newData,
+        results: [...apiData.results, ...newData.results]
+      })
+    );
+  }, [pageNumber]);
+
   return (
     <div>
-      <button onClick={() => loadMore()}>press</button>
+      {results.map(item => {
+        return <h2>{item.title}</h2>;
+      })}
+      {apiData.page > 0 ? (
+        <button onClick={() => loadMore()}>Push</button>
+      ) : null}
     </div>
   );
 };

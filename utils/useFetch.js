@@ -1,28 +1,18 @@
-import { useEffect, useState } from 'react';
-
 const API_KEY = process.env.customKey;
 const language = '&language=en';
 const region = '&region=gb';
 // const pageNumber = 1;
 
-const useFetch = (url, pageNumber) => {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${url}${API_KEY}${language}&page=${pageNumber}${region}`
-        );
-        const data = await response.json();
-        console.log(data);
-        setResponse(data);
-      } catch (error) {
-        setError(error);
-      }
-    };
-    fetchData();
-  }, [pageNumber]);
-  return { response, error };
+export const fetchData = async pageNumber => {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}${language}&page=${pageNumber}${region}`
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
-export default useFetch;
+fetchData();
