@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import Layout from '../components/Layout';
+import React from 'react';
+import { Info } from '../components/Info';
 
 const Home = () => (
   <Layout>
@@ -7,13 +9,10 @@ const Home = () => (
       <title>Popcorn Chill</title>
       <link rel='icon' href='/favicon.ico' />
     </Head>
-
     <main>
       <h1 className='title'>Popcorn Chill</h1>
-
-      <p className='description'>Find what to watch.</p>
+      <Info />
     </main>
-
     <footer>
       <a
         href='https://github.com/davidgeorgebell'
