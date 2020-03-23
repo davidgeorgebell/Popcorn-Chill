@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import React from 'react';
-import { Info } from '../components/Info';
+import InfoContainer from '../components/InfoContainer';
 
 const Home = () => (
   <Layout>
@@ -11,7 +11,7 @@ const Home = () => (
     </Head>
     <main>
       <h1 className='title'>Popcorn Chill</h1>
-      <Info />
+      <InfoContainer url='https://api.themoviedb.org/3/movie/top_rated?api_key=' />
     </main>
     <footer>
       <a
